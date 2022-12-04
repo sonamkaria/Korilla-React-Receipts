@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import receiptsArr from './receiptsArr';
+import Receipts from './components/Receipts';
+import Form from './components/Form';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+  const [receipt, setReceipt] = useState(receiptsArr)
+  //create a function that filters the original array according to an input - set
+  const findName = (name) => {
+    const filteredPerson = receiptsArr.filter((person)=>person.person === name)
+    if (name === "") setReceipt(receiptsArr) 
+    else setReceipt(filteredPerson)
+  }
+
+    return (
+      <div className="App">
+        <h1>Korrilla Receipts</h1>
+        <Form findName={findName} />
+        <Receipts receipt={receipt} />
+
+
+      </div>
+    );
+  }
+
+  export default App;
